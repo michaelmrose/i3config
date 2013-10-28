@@ -1,0 +1,349 @@
+# i3 config file (v4)
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+set $exit exec "vi3_switch-to-target-mode"
+set $mod Mod4
+set $ws1  F14
+set $ws2  F15
+set $ws3  F16
+set $ws4  F17
+set $ws5  F18
+set $ws6  F19
+set $ws7  F20
+set $ws8  F21
+set $ws9  F22
+set $ws10 F8
+set $ws11 F9
+set $ws12 F10
+set $ws13 F11
+set $ws14 F12
+set $selectall focus parent, focus parent, focus parent
+set $dm exec dmenu_run -fn 'DejaVu Sans Mono-30'
+
+floating_modifier $mod
+
+#-----------------------appearance-----------------------------
+
+#class                  border  backgr  text    indicator
+client.focused          #111111 #A6CD01 #036300 #2e9ef4
+client.focused_inactive #111111 #444444 #ffffff #484e50
+client.unfocused        #111111 #222222 #888888 #292d2e
+client.urgent           #2f343a #900000 #ffffff #900000
+
+new_window 1pixel
+font pango:DejaVu Sans Mono 10
+
+bar {
+        status_command i3status
+        tray_output primary
+        #output HDMI-0
+
+}
+#-----------------------settings---------------------------
+
+#Keybindings
+
+    # start dmenu (a program launcher)
+        bindsym F13 $dm 
+
+    # change focus 
+        bindsym $mod+Up focus up
+        bindsym $mod+Down focus down
+        bindsym $mod+Left focus left
+        bindsym $mod+Right focus right
+        
+        bindsym $mod+j focus up
+        bindsym $mod+k focus down
+        bindsym $mod+h focus left
+        bindsym $mod+l focus right
+
+    # switch to workspace
+        bindsym $ws1  exec "ws 1"
+        bindsym $ws2  exec "ws 2"
+        bindsym $ws3  exec "ws 3"
+        bindsym $ws4  exec "ws 4"
+        bindsym $ws5  exec "ws 5"
+        bindsym $ws6  exec "ws 6"
+        bindsym $ws7  exec "ws 7"
+        bindsym $ws8  exec "ws 8"
+        bindsym $ws9  exec "ws 9"
+        bindsym $ws10 exec "ws 10"
+        bindsym $ws11 exec "ws 11"
+        bindsym $ws12 exec "ws 12"
+        bindsym $ws13 exec "ws 13"
+        bindsym $ws14 exec "ws 14"
+        
+    # reload the configuration file
+        bindsym $mod+Shift+c reload
+        bindsym $mod+Shift+r restart
+
+    #other keybindings
+        bindsym $mod+s move scratchpad
+        bindsym XF86LaunchB mode "command"
+        bindsym Control+Mod1+l exec "lock"
+        bindsym Control+Mod1+s exec "suspend"
+        bindsym Control+Mod1+r $dm
+ 
+# Assign windows to workspaces and workspaces to outputs
+
+    #windows
+        
+        assign [class="Firefox"       ] 5
+        assign [class=Calibre         ] 8
+        assign [class=Qbittorrent     ] 11
+        assign [class=Clementine      ] 12
+        assign [class=Dolphin         ] 13
+
+    #outputs
+       workspace 1  output HDMI-0 
+       workspace 2  output HDMI-0   
+       workspace 3  output HDMI-0
+       workspace 4  output HDMI-0
+       workspace 5  output HDMI-0
+       workspace 6  output HDMI-0
+       workspace 7  output HDMI-0 
+       workspace 8  output HDMI-0
+       workspace 9  output HDMI-0 
+       workspace 10 output DVI-I-2
+       workspace 11 output DVI-I-2
+       workspace 12 output DVI-I-2
+       workspace 13 output DVI-I-2
+       workspace 14 output DVI-I-2
+    
+
+#-----------------------modes------------------------------
+
+mode "command" {
+    #Keybindings
+        bindsym F13 $dm 
+
+    # kill focused window
+        bindsym q kill,$exit
+
+    # alternatively, you can use the cursor keys:
+        bindsym Up focus up
+        bindsym Down focus down
+        bindsym Left focus left
+        bindsym Right focus right
+        
+        bindsym k focus up
+        bindsym j focus down
+        bindsym h focus left
+        bindsym l focus right
+    
+    # split in horizontal orientation
+        bindsym v split h
+
+    # split in vertical orientation
+        bindsym h split v
+
+    # enter fullscreen mode for the focused container
+        bindsym f fullscreen,$exit
+
+    # toggle tiling / floating
+        bindsym space floating toggle,$exit
+
+    # focus the parent container
+        bindsym a focus parent
+
+    # focus the child container
+        bindsym d focus child
+
+    # switch to workspace
+
+        bindsym $ws1  exec "ws 1"
+        bindsym $ws2  exec "ws 2"
+        bindsym $ws3  exec "ws 3"
+        bindsym $ws4  exec "ws 4"
+        bindsym $ws5  exec "ws 5"
+        bindsym $ws6  exec "ws 6"
+        bindsym $ws7  exec "ws 7"
+        bindsym $ws8  exec "ws 8"
+        bindsym $ws9  exec "ws 9"
+        bindsym $ws10 exec "ws 10"
+        bindsym $ws11 exec "ws 11"
+        bindsym $ws12 exec "ws 12"
+        bindsym $ws13 exec "ws 13"
+        bindsym $ws14 exec "ws 14"
+
+    # reload the configuration file
+        bindsym $mod+Shift+c reload
+        bindsym $mod+Shift+r restart
+
+        bindsym $mod+Shift+s move scratchpad
+        bindsym c exec "capslock"         , $exit
+        bindsym x exec "restore-from-suspend" , $exit
+
+        bindsym o mode "open"             
+        bindsym r mode "resize"           
+        bindsym m mode "move"             
+        bindsym w mode "load workspace"
+        bindsym b mode "layout"
+        bindsym t layout tabbed, $exit        
+        bindsym s layout splith, $exit
+        
+        bindsym Tab move container to output right,$exit
+       
+        # double tapping super "locks in" command mode by setting target mode to command 
+        # since $exit always returns us to the target mode 
+      
+        # if we hit escape we must set targetmode back to default so
+        # that when the user enters command mode again they wont be "locked in to command mode"
+
+        bindsym XF86LaunchB exec "vi3_target-command" 
+        bindsym Escape mode "default", exec "vi3_target-default"
+}
+
+mode "open" {
+    #keybindings
+        bindsym b exec "firefox"                      , $exit
+        bindsym c exec "coursera"                     , $exit
+        bindsym d exec "steam steam://rungameid/320"  , $exit
+        bindsym e exec "evernote"                     , $exit
+        bindsym f exec "dolphin"                      , $exit
+        bindsym g exec "gmail"                        , $exit
+        bindsym h exec "hexchat"                      , $exit
+        bindsym k exec "kmix"                         , $exit
+        bindsym l exec "calibre"                      , $exit
+        bindsym m mode "open "            
+        bindsym q exec "qbittorent"
+        bindsym s exec "steam"                        , $exit
+        bindsym t exec "konsole"                      , $exit
+        bindsym v exec "qvim"                         , $exit
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+
+mode "open " {
+    #keybindings
+        bindsym u exec "clementine" , $exit
+        bindsym o exec "vlc"        , $exit
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+
+mode "resize" {
+    #keybindings
+        bindsym Up    resize grow   height 10 px or 10 ppt
+        bindsym Down  resize shrink height 10 px or 10 ppt
+        bindsym Left  resize shrink width  10 px or 10 ppt
+        bindsym Right resize grow   width  10 px or 10 ppt
+
+        bindsym k resize grow   height 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym h resize shrink width  10 px or 10 ppt
+        bindsym l resize grow   width  10 px or 10 ppt
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+
+mode "move" {
+    #keybindings
+        bindsym a $selectall
+        bindsym k move up
+        bindsym j move down
+        bindsym h move left
+        bindsym l move right
+
+        bindsym w mode "workspace"
+        
+        bindsym $ws1   move container to workspace 1,$exit
+        bindsym $ws2   move container to workspace 2,$exit
+        bindsym $ws3   move container to workspace 3,$exit
+        bindsym $ws4   move container to workspace 4,$exit
+        bindsym $ws5   move container to workspace 5,$exit
+        bindsym $ws6   move container to workspace 6,$exit
+        bindsym $ws7   move container to workspace 7,$exit
+        bindsym $ws8   move container to workspace 8,$exit
+        bindsym $ws9   move container to workspace 9,$exit
+        bindsym $ws10  move container to workspace 10,$exit
+        bindsym $ws11  move container to workspace 11,$exit
+        bindsym $ws12  move container to workspace 12,$exit
+        bindsym $ws13  move container to workspace 13,$exit
+        bindsym $ws14  move container to workspace 14,$exit
+        
+        bindsym n      move container to output right,$exit 
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+
+mode "layout" {
+    #keybindings
+        bindsym t layout tabbed,$exit
+        bindsym h layout splith,$exit
+        bindsym v layout splitv,$exit
+        bindsym s layout stacked,$exit
+        
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+
+mode "workspace" {
+    #keybindings
+        bindsym a exec "sws a",$exit
+        bindsym b exec "sws b",$exit
+        bindsym c exec "sws c",$exit
+        bindsym d exec "sws d",$exit
+        bindsym e exec "sws e",$exit
+        bindsym f exec "sws f",$exit
+        bindsym g exec "sws g",$exit
+        bindsym h exec "sws h",$exit
+        bindsym i exec "sws i",$exit
+        bindsym j exec "sws j",$exit
+        bindsym k exec "sws k",$exit
+        bindsym l exec "sws l",$exit
+        bindsym m exec "sws m",$exit
+        bindsym n exec "sws n",$exit
+        bindsym o exec "sws o",$exit
+        bindsym p exec "sws p",$exit
+        bindsym q exec "sws q",$exit
+        bindsym r exec "sws r",$exit
+        bindsym s exec "sws s",$exit
+        bindsym t exec "sws t",$exit
+        bindsym u exec "sws u",$exit
+        bindsym v exec "sws v",$exit
+        bindsym w exec "sws w",$exit
+        bindsym x exec "sws x",$exit
+        bindsym y exec "sws y",$exit
+        bindsym z exec "sws z",$exit
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+mode "load workspace" {
+    #keybindings
+        bindsym a exec "lws a",$exit
+        bindsym b exec "lws b",$exit
+        bindsym c exec "lws c",$exit
+        bindsym d exec "lws d",$exit
+        bindsym e exec "lws e",$exit
+        bindsym f exec "lws f",$exit
+        bindsym g exec "lws g",$exit
+        bindsym h exec "lws h",$exit
+        bindsym i exec "lws i",$exit
+        bindsym j exec "lws j",$exit
+        bindsym k exec "lws k",$exit
+        bindsym l exec "lws l",$exit
+        bindsym m exec "lws m",$exit
+        bindsym n exec "lws n",$exit
+        bindsym o exec "lws o",$exit
+        bindsym p exec "lws p",$exit
+        bindsym q exec "lws q",$exit
+        bindsym r exec "lws r",$exit
+        bindsym s exec "lws s",$exit
+        bindsym t exec "lws t",$exit
+        bindsym u exec "lws u",$exit
+        bindsym v exec "lws v",$exit
+        bindsym w exec "lws w",$exit
+        bindsym x exec "lws x",$exit
+        bindsym y exec "lws y",$exit
+        bindsym z exec "lws z",$exit
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+exec "vi3_start-vi3"
+# vim:filetype=i3

@@ -1,0 +1,45 @@
+! change Escape 
+keysym Escape = F13 
+
+keysym Print        = F14
+keysym Scroll_Lock  = F15
+keysym Pause        = F16
+keysym Insert       = F17
+keysym Home         = F18
+keysym Page_Up      = F19
+keysym Delete       = F20
+keysym End          = F21
+keysym Page_Down    = F22
+
+keysym BackSpace = BackSpace
+keysym Menu = Delete
+
+ 
+! change bracket keys
+! keysym bracketleft  = parenleft parenright
+! keysym bracketright = bracketleft bracketright
+! keysym backslash    = braceleft braceright
+
+! replace the backslash and pipe char replaced by brace key
+! keysym 9 = 9 backslash
+! keysym 0 = 0 bar
+
+
+! clear capslock and remap capslock to escape
+clear Lock
+keysym Caps_Lock = Escape
+
+! all keysyms to be used xcape must have unused keycodes
+keycode 247 = XF86LaunchA
+keycode 248 = XF86LaunchB
+keycode 249 = XF86Launch1
+keycode 250 = XF86Launch2
+keycode 251 = XF86Launch3
+keycode 253 = XF86Launch5
+keycode 254 = Page_Down
+keycode 255 = Page_Up
+
+! now lets swap colon and semi colon
+keysym semicolon = colon semicolon
+
+!# vim:filetype=xmodmap
