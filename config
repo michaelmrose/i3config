@@ -80,6 +80,8 @@ bar {
     #other keybindings
         bindsym $mod+s move scratchpad
         bindsym XF86LaunchB mode "command"
+        bindsym XF86Launch1 mode "command"
+        bindsym XF86Launch2 mode "load workspace" 
         bindsym Control+Mod1+l exec "lock"
         bindsym Control+Mod1+s exec "suspend"
         bindsym Control+Mod1+r $dm
@@ -191,6 +193,7 @@ mode "command" {
         # that when the user enters command mode again they wont be "locked in to command mode"
 
         bindsym XF86LaunchB exec "vi3_target-command" 
+        bindsym XF86Launch1 exec "vi3_target-command" 
         bindsym Escape mode "default", exec "vi3_target-default"
 }
 

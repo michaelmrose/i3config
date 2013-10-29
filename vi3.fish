@@ -16,8 +16,8 @@ function vi3_setup-keyboard
     xcape -e 'Control_L=Page_Down'
     xcape -e 'Super_L=XF86LaunchB'
     xcape -e 'Alt_L=Page_Up'
-    xcape -e 'Shift_L=parenleft'
-    xcape -e 'Shift_R=parenright'
+    xcape -e 'Shift_L=XF86Launch1'
+    xcape -e 'Shift_R=XF86Launch2'
 end
 
 function vi3_workspace
