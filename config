@@ -46,36 +46,12 @@ bar {
 
 #Keybindings
 
-    # start dmenu (a program launcher)
-        bindsym F13 $dm 
-
     # change focus 
-        bindsym $mod+Up focus up
-        bindsym $mod+Down focus down
-        bindsym $mod+Left focus left
-        bindsym $mod+Right focus right
-        
         bindsym $mod+j focus up
         bindsym $mod+k focus down
         bindsym $mod+h focus left
         bindsym $mod+l focus right
 
-    # switch to workspace
-        bindsym $ws1  exec "ws 1"
-        bindsym $ws2  exec "ws 2"
-        bindsym $ws3  exec "ws 3"
-        bindsym $ws4  exec "ws 4"
-        bindsym $ws5  exec "ws 5"
-        bindsym $ws6  exec "ws 6"
-        bindsym $ws7  exec "ws 7"
-        bindsym $ws8  exec "ws 8"
-        bindsym $ws9  exec "ws 9"
-        bindsym $ws10 exec "ws 10"
-        bindsym $ws11 exec "ws 11"
-        bindsym $ws12 exec "ws 12"
-        bindsym $ws13 exec "ws 13"
-        bindsym $ws14 exec "ws 14"
-        
     # reload the configuration file
         bindsym $mod+Shift+c reload
         bindsym $mod+Shift+r restart
@@ -92,7 +68,7 @@ bar {
 # Assign windows to workspaces and workspaces to outputs
 
     #windows
-        
+        #example of how to assign a given application to a given workspace
         #assign [class=some_app_name         ] some_workspace
 
     #outputs
@@ -122,8 +98,7 @@ bar {
 mode "command" {
     #Keybindings
         bindsym F13 $dm 
-        bindsym Return $dm,$exit
-        bindsym Colon $dm,$exit
+        bindsym colon $dm,$exit
 
     # kill focused window
         bindsym q kill,$exit
