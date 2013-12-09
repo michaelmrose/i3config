@@ -6,7 +6,6 @@ set $exit mode "default"
 set $mod Mod4
 set $primary_output HDMI-0 
 set $secondary_output DVI-I-2
-
 set $selectall focus parent, focus parent, focus parent
 set $dm exec dmenu_run -fn 'DejaVu Sans Mono-15'
 
