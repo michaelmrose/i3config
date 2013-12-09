@@ -1,7 +1,8 @@
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $exit exec "vi3_switch-to-target-mode"
+#set $exit exec "vi3_switch-to-target-mode" 
+set $exit mode "default"
 set $mod Mod4
 set $primary_output HDMI-0 
 set $secondary_output DVI-I-2
@@ -124,7 +125,9 @@ mode "command" {
         bindsym h focus left
         bindsym l focus right
         bindsym space focus output right,$exit
-        bindsym tab move container to output right,focus output right,$exit 
+        bindsym n move container to output right,focus output right,$exit 
+        bindsym Tab exec "rotatewindows.sh"
+        bindsym g exec "layout.sh" 
 
     # move windows around
         bindsym Shift+k move up
@@ -177,21 +180,22 @@ mode "command" {
 
 mode "open" {
     #keybindings
-        bindsym b exec "firefox"                      , $exit
-        bindsym c exec "coursera"                     , $exit
-        bindsym d exec "steam steam://rungameid/320"  , $exit
-        bindsym e exec "noteit"                       , $exit
-        bindsym f exec "dolphin"                      , $exit
-        bindsym h exec "hexchat"                      , $exit
-        bindsym k exec "kmix"                         , $exit
-        bindsym l exec "calibre"                      , $exit
-        bindsym m mode "open "            
-        bindsym n exec "nvpy"                         , $exit
-        bindsym q exec "qbittorent"                   , $exit
-        bindsym s exec "steam"                        , $exit
-        bindsym t exec "konsole"                      , $exit
-        bindsym v exec "qvim"                         , $exit
-        bindsym w exec "wing4.1"                         , $exit
+        bindsym b exec "firefox"                     , $exit
+        bindsym c exec "coursera"                    , $exit
+        bindsym d exec "steam steam://rungameid/320" , $exit
+        bindsym e exec "nvpy"                        , $exit
+        bindsym f exec "dolphin"                     , $exit
+        bindsym g exec "steam"                     , $exit
+        bindsym h exec "hexchat"                     , $exit
+        bindsym k exec "kmix"                        , $exit
+        bindsym l exec "calibre"                     , $exit
+        bindsym m mode "open "
+        bindsym n exec "noteit"                      , $exit
+        bindsym q exec "qbittorent"                  , $exit
+        bindsym s exec "spotify"                       , $exit
+        bindsym t exec "konsole"                     , $exit
+        bindsym v exec "qvim"                        , $exit
+        bindsym w exec "wing4.1"                     , $exit
         bindsym Escape $exit
         bindsym F7 mode "default"
 }
@@ -242,6 +246,7 @@ mode "split" {
         bindsym F7 mode "default"
 }
 
+#since I only have one monitor temporarily I must change some stuff around
 mode "open workspace" {
     #keybindings
         bindsym 1 workspace 1,$exit
@@ -262,14 +267,14 @@ mode "open workspace" {
         bindsym f workspace f,$exit
         bindsym g workspace g,$exit
         bindsym h workspace h,$exit
-        bindsym i workspace q, workspace i, focus output $primary_output, $exit
-        bindsym j workspace f, workspace j, focus output $primary_output, $exit
+        bindsym i workspace i,$exit 
+        bindsym j workspace j,$exit 
         bindsym k workspace k,$exit
         bindsym l workspace l,$exit
         bindsym m workspace m,$exit
         bindsym n workspace n,$exit
         bindsym o workspace o,$exit
-        bindsym p workspace q, workspace p, focus output $primary_output, $exit
+        bindsym p workspace p,$exit 
         bindsym q workspace q,$exit
         bindsym r workspace r,$exit
         bindsym s workspace s,$exit
