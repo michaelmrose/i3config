@@ -1,8 +1,8 @@
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-#set $exit exec "vi3_switch-to-target-mode" 
-set $exit mode "default"
+set $exit exec "ff vi3_switch-to-target-mode" 
+#set $exit mode "default"
 set $mod Mod4
 set $primary_output HDMI-0 
 set $secondary_output DVI-I-2
@@ -23,8 +23,8 @@ new_window 1pixel
 font pango:DejaVu Sans Mono 10
 
 bar {
+        tray_output DVI-I-1
         status_command i3status
-        tray_output primary
         #output $primary_output
 
 }
@@ -47,21 +47,23 @@ bar {
         bindsym XF86LaunchB mode "command"
         bindsym XF86Launch2 mode "open workspace"
         bindsym XF86Launch1 mode "open workspace" 
-        bindsym Control+Mod1+l exec "lock"
+        bindsym Control+Mod1+l exec "~/scripts/lockme.sh"
         bindsym Control+Mod1+s exec "suspend"
         bindsym Control+Mod1+r $dm
         bindsym F13 $dm
-
-    #easier arrow keys
-        bindsym Mod1+w exec "/opt/bin/up"
         bindsym Mod1+s exec "konsole"
+        bindsym F14 exec "~/scripts/switchaudio.sh"
+        bindsym F16 exec "kmix"
  
 # Assign windows to workspaces and workspaces to outputs
 
     #windows
-        assign [class=Clementine  ] s
-        assign [class=Dolphin     ] d
-        assign [class=Calibre     ] i
+        assign [class=Clementine    ] s
+        assign [class=Dolphin       ] d
+        assign [class=Calibre-gui   ] i
+        assign [class=Hexchat       ] u
+        assign [class=Firefox       ] k
+        assign [class=jetbrains-ide ] q
         
 
     #outputs
@@ -104,14 +106,16 @@ bar {
     
 for_window [class="Kcalc"] floating enable
 for_window [class="Calibre-gui" window_role="dialog"] floating enable
+for_window [class="feh"] floating enable
 #-----------------------modes------------------------------
 mode "command" {
     #Keybindings
-        bindsym F13 $dm 
-#        bindsym Return $dm,$exit
+        
+        bindsym F13 $dm
 
     # kill focused window
         bindsym q kill,$exit
+        bindsym d mode "kill"
 
     # alternatively, you can use the cursor keys:
         bindsym Up focus up
@@ -125,8 +129,10 @@ mode "command" {
         bindsym l focus right
         bindsym space focus output right,$exit
         bindsym n move container to output right,focus output right,$exit 
-        bindsym Tab exec "rotatewindows.sh"
-        bindsym g exec "layout.sh" 
+        bindsym z exec "/home/michael/scripts/rotatewindows.sh"
+        #bindsym t exec "ksnapshot",$exit
+        bindsym e exec "/home/michael/scripts/layout.sh", $exit
+        bindsym Tab workspace back_and_forth , $exit
 
     # move windows around
         bindsym Shift+k move up
@@ -155,15 +161,18 @@ mode "command" {
         bindsym $mod+Shift+r restart
 
         bindsym $mod+Shift+s move scratchpad
-        bindsym c exec "capslock"         , $exit
+        bindsym c exec "xdotool key Caps_Lock" , $exit
         bindsym x exec "restore-from-suspend" , $exit
 
         bindsym o mode "open"             
         bindsym r mode "resize"           
-        bindsym m mode "move workspace"             
+        bindsym m mode "move window to workspace"             
+        bindsym t mode "take window to workspace"
+        bindsym g mode "get windows from workspace"
         bindsym w mode "open workspace"
         bindsym a mode "arrange"
         bindsym s mode "split"
+        bindsym y mode "combine workspaces"
         
        
         # double tapping super "locks in" command mode by setting target mode to command 
@@ -172,29 +181,34 @@ mode "command" {
         # if we hit escape we must set targetmode back to default so
         # that when the user enters command mode again they wont be "locked in to command mode"
 
-        bindsym XF86LaunchB exec "vi3_target-command" 
+        bindsym XF86LaunchB exec "ff vi3_target-command" 
         bindsym XF86Launch1 mode "open workspace"
-        bindsym Escape mode "default", exec "vi3_target-default"
+        bindsym Escape mode "default", exec "ff vi3_target-default"
 }
 
 mode "open" {
     #keybindings
         bindsym b exec "firefox"                     , $exit
-        bindsym c exec "coursera"                    , $exit
-        bindsym d exec "steam steam://rungameid/320" , $exit
+        bindsym c exec "kcalc"                       , $exit
+        bindsym d exec "qbittorent"                  , $exit
         bindsym e exec "nvpy"                        , $exit
         bindsym f exec "dolphin"                     , $exit
-        bindsym g exec "steam"                     , $exit
+        bindsym g exec "steam"                       , $exit
         bindsym h exec "hexchat"                     , $exit
+        bindsym i exec "idea"                        , $exit
         bindsym k exec "kmix"                        , $exit
         bindsym l exec "calibre"                     , $exit
         bindsym m mode "open "
-        bindsym n exec "noteit"                      , $exit
+        bindsym n exec "~/scripts/noteit"            , $exit
+        bindsym o exec "kdesudo systemsettings"      , $exit
+        bindsym p exec "kdesudo synaptic"            , $exit
         bindsym q exec "qbittorent"                  , $exit
-        bindsym s exec "spotify"                       , $exit
+        bindsym s exec "steam"                       , $exit
         bindsym t exec "konsole"                     , $exit
         bindsym v exec "qvim"                        , $exit
-        bindsym w exec "wing4.1"                     , $exit
+        bindsym w exec "libreoffice"                 , $exit
+        bindsym x exec "ksnapshot"
+
         bindsym Escape $exit
         bindsym F7 mode "default"
 }
@@ -284,11 +298,12 @@ mode "open workspace" {
         bindsym x workspace x,$exit
         bindsym y workspace y,$exit
         bindsym z workspace z,$exit
+        bindsym Tab exec "i3-msg workspace back_and_forth",$exit 
 
         bindsym Escape $exit
         bindsym F7 mode "default"
 }
-mode "move workspace" {
+mode "take window to workspace" {
     #keybindings
         bindsym 1 move container to workspace 1, workspace 1, $exit
         bindsym 2 move container to workspace 2, workspace 2, $exit
@@ -331,5 +346,144 @@ mode "move workspace" {
         bindsym F7 mode "default"
 }
 
+mode "get windows from workspace" {
+
+        #bindsym 1 exec "~/scripts/getws 1", $exit
+        bindsym 1 exec "ff getws 1", $exit
+        bindsym 2 exec "ff getws 2", $exit
+        bindsym 3 exec "ff getws 3", $exit
+        bindsym 4 exec "ff getws 4", $exit
+        bindsym 5 exec "ff getws 5", $exit
+        bindsym 6 exec "ff getws 6", $exit
+        bindsym 7 exec "ff getws 7", $exit
+        bindsym 8 exec "ff getws 8", $exit
+        bindsym 9 exec "ff getws 9", $exit
+        bindsym 0 exec "ff getws 0", $exit
+        bindsym a exec "ff getws a", $exit
+        bindsym b exec "ff getws b", $exit
+        bindsym c exec "ff getws c", $exit
+        bindsym d exec "ff getws d", $exit
+        bindsym e exec "ff getws e", $exit
+        bindsym f exec "ff getws f", $exit
+        bindsym g exec "ff getws g", $exit
+        bindsym h exec "ff getws h", $exit
+        bindsym i exec "ff getws i", $exit
+        bindsym j exec "ff getws j", $exit
+        bindsym k exec "ff getws k", $exit
+        bindsym l exec "ff getws l", $exit
+        bindsym m exec "ff getws m", $exit
+        bindsym n exec "ff getws n", $exit
+        bindsym o exec "ff getws o", $exit
+        bindsym p exec "ff getws p", $exit
+        bindsym q exec "ff getws q", $exit
+        bindsym r exec "ff getws r", $exit
+        bindsym s exec "ff getws s", $exit
+        bindsym t exec "ff getws t", $exit
+        bindsym u exec "ff getws u", $exit
+        bindsym v exec "ff getws v", $exit
+        bindsym w exec "ff getws w", $exit
+        bindsym x exec "ff getws x", $exit
+        bindsym y exec "ff getws y", $exit
+        bindsym z exec "ff getws z", $exit
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+
+}
+
+mode "move window to workspace" {
+    #keybindings
+        bindsym 1 move container to workspace 1, $exit
+        bindsym 2 move container to workspace 2, $exit
+        bindsym 3 move container to workspace 3, $exit
+        bindsym 4 move container to workspace 4, $exit
+        bindsym 5 move container to workspace 5, $exit
+        bindsym 6 move container to workspace 6, $exit
+        bindsym 7 move container to workspace 7, $exit
+        bindsym 8 move container to workspace 8, $exit
+        bindsym 9 move container to workspace 9, $exit
+        bindsym 0 move container to workspace 0, $exit
+        bindsym a move container to workspace a, $exit
+        bindsym b move container to workspace b, $exit
+        bindsym c move container to workspace c, $exit
+        bindsym d move container to workspace d, $exit
+        bindsym e move container to workspace e, $exit
+        bindsym f move container to workspace f, $exit
+        bindsym g move container to workspace g, $exit
+        bindsym h move container to workspace h, $exit
+        bindsym i move container to workspace i, $exit
+        bindsym j move container to workspace j, $exit
+        bindsym k move container to workspace k, $exit
+        bindsym l move container to workspace l, $exit
+        bindsym m move container to workspace m, $exit
+        bindsym n move container to workspace n, $exit
+        bindsym o move container to workspace o, $exit
+        bindsym p move container to workspace p, $exit
+        bindsym q move container to workspace q, $exit
+        bindsym r move container to workspace r, $exit
+        bindsym s move container to workspace s, $exit
+        bindsym t move container to workspace t, $exit
+        bindsym u move container to workspace u, $exit
+        bindsym v move container to workspace v, $exit
+        bindsym w move container to workspace w, $exit
+        bindsym x move container to workspace x, $exit
+        bindsym y move container to workspace y, $exit
+        bindsym z move container to workspace z, $exit
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+
+mode "combine workspaces" {
+    #keybindings
+        bindsym 1 exec "ff cws 1" 
+        bindsym 2 exec "ff cws 2" 
+        bindsym 3 exec "ff cws 3" 
+        bindsym 4 exec "ff cws 4" 
+        bindsym 5 exec "ff cws 5" 
+        bindsym 6 exec "ff cws 6" 
+        bindsym 7 exec "ff cws 7" 
+        bindsym 8 exec "ff cws 8" 
+        bindsym 9 exec "ff cws 9" 
+        bindsym 0 exec "ff cws 0" 
+        bindsym a exec "ff cws a" 
+        bindsym b exec "ff cws b" 
+        bindsym c exec "ff cws c" 
+        bindsym d exec "ff cws d" 
+        bindsym e exec "ff cws e" 
+        bindsym f exec "ff cws f" 
+        bindsym g exec "ff cws g" 
+        bindsym h exec "ff cws h" 
+        bindsym i exec "ff cws i" 
+        bindsym j exec "ff cws j" 
+        bindsym k exec "ff cws k" 
+        bindsym l exec "ff cws l" 
+        bindsym m exec "ff cws m" 
+        bindsym n exec "ff cws n" 
+        bindsym o exec "ff cws o" 
+        bindsym p exec "ff cws p" 
+        bindsym q exec "ff cws q" 
+        bindsym r exec "ff cws r" 
+        bindsym s exec "ff cws s" 
+        bindsym t exec "ff cws t" 
+        bindsym u exec "ff cws u" 
+        bindsym v exec "ff cws v" 
+        bindsym w exec "ff cws w" 
+        bindsym x exec "ff cws x" 
+        bindsym y exec "ff cws y" 
+        bindsym z exec "ff cws z" 
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+
+mode kill {
+    #keybindings
+        bindsym d $selectall, kill, $exit 
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+
+exec "~/scripts/autostart.sh" 
 exec "vi3_start-vi3"
 # vim:filetype=i3
