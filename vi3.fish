@@ -48,15 +48,29 @@ end
 # end
 
 function vi3_combine-workspaces
-    set -U alist $alist $argv[1]
-    if test (count $alist) = 2
-        vi3_get-workspace $alist[1]
-        vi3_get-workspace $alist[2]
-        set -e alist
+    set -U combolist $combolist $argv[1]
+    if test (count $combolist) = 2
+        vi3_get-workspace $combolist[1]
+        vi3_get-workspace $combolist[2]
+        set -e combolist
         i3-msg mode "default"
     else
        echo "not yet"
-        i3-msg mode "combine workspaces"
+    end
+end
+
+function vi3_rearrange-workspaces
+    set -U relist $relist $argv[1]
+    if test (count $relist) = 2
+        set -l myworkspace (getCurrentWorkspace) 
+        vi3_workspace $relist[2]
+        vi3_get-workspace $relist[1]
+        vi3_workspace $myworkspace 
+        set -e relist
+        i3-msg mode "default"
+    else
+       echo "not yet"
+       #i3-msg mode "rearrange workspaces"
     end
 end
 
@@ -94,7 +108,3 @@ function vi3_select-all-in-workspace
 end
 
 # short alias to longer commands
-alias ws vi3_workspace
-alias getws vi3_get-workspace
-alias cws vi3_combine-workspaces
-alias saw vi3_select-all-in-workspace

@@ -1,10 +1,10 @@
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $exit exec "ff vi3_switch-to-target-mode" 
-#set $exit mode "default"
+#set $exit exec "ff vi3_switch-to-target-mode" 
+set $exit mode "default"
 set $mod Mod4
-set $primary_output HDMI-0 
+set $primary_output   DVI-I-1
 set $secondary_output DVI-I-2
 set $selectall focus parent, focus parent, focus parent
 set $dm exec dmenu_run -fn 'DejaVu Sans Mono-15'
@@ -23,7 +23,7 @@ new_window 1pixel
 font pango:DejaVu Sans Mono 10
 
 bar {
-        tray_output DVI-I-1
+        tray_output $primary_output
         status_command i3status
         #output $primary_output
 
@@ -47,7 +47,7 @@ bar {
         bindsym XF86LaunchB mode "command"
         bindsym XF86Launch2 mode "open workspace"
         bindsym XF86Launch1 mode "open workspace" 
-        bindsym Control+Mod1+l exec "~/scripts/lockme.sh"
+        bindsym Control+Mod1+l exec "ff lock"
         bindsym Control+Mod1+s exec "suspend"
         bindsym Control+Mod1+r $dm
         bindsym F13 $dm
@@ -61,9 +61,10 @@ bar {
         assign [class=Clementine    ] s
         assign [class=Dolphin       ] d
         assign [class=Calibre-gui   ] i
-        assign [class=Hexchat       ] u
+        assign [class=Hexchat       ] a
         assign [class=Firefox       ] k
-        assign [class=jetbrains-ide ] q
+        assign [class=jetbrains-ide ] u
+        assign [class=Vmware        ] r
         
 
     #outputs
@@ -129,7 +130,7 @@ mode "command" {
         bindsym l focus right
         bindsym space focus output right,$exit
         bindsym n move container to output right,focus output right,$exit 
-        bindsym z exec "/home/michael/scripts/rotatewindows.sh"
+        #bindsym z exec "/home/michael/scripts/rotatewindows.sh"
         #bindsym t exec "ksnapshot",$exit
         bindsym e exec "/home/michael/scripts/layout.sh", $exit
         bindsym Tab workspace back_and_forth , $exit
@@ -172,7 +173,8 @@ mode "command" {
         bindsym w mode "open workspace"
         bindsym a mode "arrange"
         bindsym s mode "split"
-        bindsym y mode "combine workspaces"
+        bindsym Shift+c mode "combine workspaces"
+        bindsym Shift+r mode "rearrange workspaces"
         
        
         # double tapping super "locks in" command mode by setting target mode to command 
@@ -188,35 +190,28 @@ mode "command" {
 
 mode "open" {
     #keybindings
-        bindsym b exec "firefox"                     , $exit
-        bindsym c exec "kcalc"                       , $exit
-        bindsym d exec "qbittorent"                  , $exit
-        bindsym e exec "nvpy"                        , $exit
-        bindsym f exec "dolphin"                     , $exit
-        bindsym g exec "steam"                       , $exit
-        bindsym h exec "hexchat"                     , $exit
-        bindsym i exec "idea"                        , $exit
-        bindsym k exec "kmix"                        , $exit
-        bindsym l exec "calibre"                     , $exit
-        bindsym m mode "open "
-        bindsym n exec "~/scripts/noteit"            , $exit
-        bindsym o exec "kdesudo systemsettings"      , $exit
-        bindsym p exec "kdesudo synaptic"            , $exit
-        bindsym q exec "qbittorent"                  , $exit
-        bindsym s exec "steam"                       , $exit
-        bindsym t exec "konsole"                     , $exit
-        bindsym v exec "qvim"                        , $exit
-        bindsym w exec "libreoffice"                 , $exit
-        bindsym x exec "ksnapshot"
-
-        bindsym Escape $exit
-        bindsym F7 mode "default"
-}
-
-mode "open " {
-    #keybindings
-        bindsym u exec "clementine" , $exit
-        bindsym o exec "vlc"        , $exit
+        bindsym b       exec "firefox"                , $exit
+        bindsym c       exec "kcalc"                  , $exit
+        bindsym d       exec "qbittorent"             , $exit
+        bindsym e       exec "nvpy"                   , $exit
+        bindsym f       exec "dolphin"                , $exit
+        bindsym g       exec "steam"                  , $exit
+        bindsym h       exec "hexchat"                , $exit
+        bindsym i       exec "idea"                   , $exit
+        bindsym k       exec "kmix"                   , $exit
+        bindsym l       exec "calibre"                , $exit
+        bindsym m       exec "clementine"             , $exit
+        bindsym Shift+m exec "vlc"                    , $exit
+        bindsym n       exec "~/scripts/noteit"       , $exit
+        bindsym o       exec "systemsettings"         , $exit
+        bindsym Shift+o exec "kdesudo systemsettings" , $exit
+        bindsym p       exec "kdesudo synaptic"       , $exit
+        bindsym q       exec "qbittorent"             , $exit
+        bindsym s       exec "steam"                  , $exit
+        bindsym t       exec "konsole"                , $exit
+        bindsym v       exec "qvim"                   , $exit
+        bindsym w       exec "libreoffice"            , $exit
+        bindsym x       exec "ksnapshot"
 
         bindsym Escape $exit
         bindsym F7 mode "default"
@@ -347,44 +342,43 @@ mode "take window to workspace" {
 }
 
 mode "get windows from workspace" {
-
-        #bindsym 1 exec "~/scripts/getws 1", $exit
-        bindsym 1 exec "ff getws 1", $exit
-        bindsym 2 exec "ff getws 2", $exit
-        bindsym 3 exec "ff getws 3", $exit
-        bindsym 4 exec "ff getws 4", $exit
-        bindsym 5 exec "ff getws 5", $exit
-        bindsym 6 exec "ff getws 6", $exit
-        bindsym 7 exec "ff getws 7", $exit
-        bindsym 8 exec "ff getws 8", $exit
-        bindsym 9 exec "ff getws 9", $exit
-        bindsym 0 exec "ff getws 0", $exit
-        bindsym a exec "ff getws a", $exit
-        bindsym b exec "ff getws b", $exit
-        bindsym c exec "ff getws c", $exit
-        bindsym d exec "ff getws d", $exit
-        bindsym e exec "ff getws e", $exit
-        bindsym f exec "ff getws f", $exit
-        bindsym g exec "ff getws g", $exit
-        bindsym h exec "ff getws h", $exit
-        bindsym i exec "ff getws i", $exit
-        bindsym j exec "ff getws j", $exit
-        bindsym k exec "ff getws k", $exit
-        bindsym l exec "ff getws l", $exit
-        bindsym m exec "ff getws m", $exit
-        bindsym n exec "ff getws n", $exit
-        bindsym o exec "ff getws o", $exit
-        bindsym p exec "ff getws p", $exit
-        bindsym q exec "ff getws q", $exit
-        bindsym r exec "ff getws r", $exit
-        bindsym s exec "ff getws s", $exit
-        bindsym t exec "ff getws t", $exit
-        bindsym u exec "ff getws u", $exit
-        bindsym v exec "ff getws v", $exit
-        bindsym w exec "ff getws w", $exit
-        bindsym x exec "ff getws x", $exit
-        bindsym y exec "ff getws y", $exit
-        bindsym z exec "ff getws z", $exit
+    #keybindings
+        bindsym 1 exec "ff getws 1",$exit
+        bindsym 2 exec "ff getws 2",$exit
+        bindsym 3 exec "ff getws 3",$exit
+        bindsym 4 exec "ff getws 4",$exit
+        bindsym 5 exec "ff getws 5",$exit
+        bindsym 6 exec "ff getws 6",$exit
+        bindsym 7 exec "ff getws 7",$exit
+        bindsym 8 exec "ff getws 8",$exit
+        bindsym 9 exec "ff getws 9",$exit
+        bindsym 0 exec "ff getws 0",$exit
+        bindsym a exec "ff getws a",$exit
+        bindsym b exec "ff getws b",$exit
+        bindsym c exec "ff getws c",$exit
+        bindsym d exec "ff getws d",$exit
+        bindsym e exec "ff getws e",$exit
+        bindsym f exec "ff getws f",$exit
+        bindsym g exec "ff getws g",$exit
+        bindsym h exec "ff getws h",$exit
+        bindsym i exec "ff getws i",$exit
+        bindsym j exec "ff getws j",$exit
+        bindsym k exec "ff getws k",$exit
+        bindsym l exec "ff getws l",$exit
+        bindsym m exec "ff getws m",$exit
+        bindsym n exec "ff getws n",$exit
+        bindsym o exec "ff getws o",$exit
+        bindsym p exec "ff getws p",$exit
+        bindsym q exec "ff getws q",$exit
+        bindsym r exec "ff getws r",$exit
+        bindsym s exec "ff getws s",$exit
+        bindsym t exec "ff getws t",$exit
+        bindsym u exec "ff getws u",$exit
+        bindsym v exec "ff getws v",$exit
+        bindsym w exec "ff getws w",$exit
+        bindsym x exec "ff getws x",$exit
+        bindsym y exec "ff getws y",$exit
+        bindsym z exec "ff getws z",$exit
 
         bindsym Escape $exit
         bindsym F7 mode "default"
@@ -477,6 +471,48 @@ mode "combine workspaces" {
         bindsym F7 mode "default"
 }
 
+mode "rearrange workspaces" {
+    #keybindings
+        bindsym 1 exec "ff rws 1" 
+        bindsym 2 exec "ff rws 2"
+        bindsym 3 exec "ff rws 3" 
+        bindsym 4 exec "ff rws 4" 
+        bindsym 5 exec "ff rws 5" 
+        bindsym 6 exec "ff rws 6" 
+        bindsym 7 exec "ff rws 7" 
+        bindsym 8 exec "ff rws 8" 
+        bindsym 9 exec "ff rws 9" 
+        bindsym 0 exec "ff rws 0" 
+        bindsym a exec "ff rws a" 
+        bindsym b exec "ff rws b" 
+        bindsym c exec "ff rws c" 
+        bindsym d exec "ff rws d" 
+        bindsym e exec "ff rws e" 
+        bindsym f exec "ff rws f" 
+        bindsym g exec "ff rws g" 
+        bindsym h exec "ff rws h" 
+        bindsym i exec "ff rws i" 
+        bindsym j exec "ff rws j" 
+        bindsym k exec "ff rws k" 
+        bindsym l exec "ff rws l" 
+        bindsym m exec "ff rws m" 
+        bindsym n exec "ff rws n" 
+        bindsym o exec "ff rws o" 
+        bindsym p exec "ff rws p" 
+        bindsym q exec "ff rws q" 
+        bindsym r exec "ff rws r" 
+        bindsym s exec "ff rws s" 
+        bindsym t exec "ff rws t" 
+        bindsym u exec "ff rws u" 
+        bindsym v exec "ff rws v" 
+        bindsym w exec "ff rws w" 
+        bindsym x exec "ff rws x" 
+        bindsym y exec "ff rws y" 
+        bindsym z exec "ff rws z" 
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
 mode kill {
     #keybindings
         bindsym d $selectall, kill, $exit 

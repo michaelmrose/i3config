@@ -7,9 +7,9 @@ keysym Pause        = F16
 keysym Insert       = F17
 keysym Home         = F18
 keysym Page_Up      = F19
-keysym Delete       = F20
+keysym Delete       = Home
 keysym End          = F21
-keysym Page_Down    = F22
+keysym Page_Down    = End
 
 keysym BackSpace = BackSpace
 keysym Menu = Delete
