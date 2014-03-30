@@ -54,6 +54,7 @@ bar {
         bindsym Mod1+s exec "konsole"
         bindsym F14 exec "~/scripts/switchaudio.sh"
         bindsym F16 exec "kmix"
+        bindsym $mod+n exec "ff new-session"
  
 # Assign windows to workspaces and workspaces to outputs
 
