@@ -14,17 +14,6 @@ keysym Page_Down    = End
 keysym BackSpace = BackSpace
 keysym Menu = Delete
 
- 
-! change bracket keys
-! keysym bracketleft  = parenleft parenright
-! keysym bracketright = bracketleft bracketright
-! keysym backslash    = braceleft braceright
-
-! replace the backslash and pipe char replaced by brace key
-! keysym 9 = 9 backslash
-! keysym 0 = 0 bar
-
-
 ! clear capslock and remap capslock to escape
 clear Lock
 keysym Caps_Lock = Escape
