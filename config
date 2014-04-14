@@ -23,10 +23,9 @@ new_window 1pixel
 font pango:DejaVu Sans Mono 10
 
 bar {
-        tray_output $primary_output
         status_command i3status
+        tray_output $primary_output
         #output $primary_output
-
 }
 #-----------------------settings---------------------------
 
@@ -55,17 +54,18 @@ bar {
         bindsym F14 exec "~/scripts/switchaudio.sh"
         bindsym F16 exec "kmix"
         bindsym $mod+n exec "ff new-session"
+        bindsym F15 exec "ff setvol +5%"
+        bindsym F21 exec "ff setvol -5%"
  
 # Assign windows to workspaces and workspaces to outputs
 
     #windows
         assign [class=Clementine    ] s
-        assign [class=Dolphin       ] d
         assign [class=Calibre-gui   ] i
         assign [class=Hexchat       ] a
-        assign [class=Firefox       ] k
         assign [class=jetbrains-ide ] u
         assign [class=Vmware        ] r
+        assign [class=Thunderbird   ] l
         
 
     #outputs
@@ -109,6 +109,7 @@ bar {
 for_window [class="Kcalc"] floating enable
 for_window [class="Calibre-gui" window_role="dialog"] floating enable
 for_window [class="feh"] floating enable
+for_window [class="firefox.exe"] fullscreen
 #-----------------------modes------------------------------
 mode "command" {
     #Keybindings
@@ -203,7 +204,7 @@ mode "open" {
         bindsym l       exec "calibre"                , $exit
         bindsym m       exec "clementine"             , $exit
         bindsym Shift+m exec "vlc"                    , $exit
-        bindsym n       exec "~/scripts/noteit"       , $exit
+        bindsym n       exec "ff noteit"              , $exit
         bindsym o       exec "systemsettings"         , $exit
         bindsym Shift+o exec "kdesudo systemsettings" , $exit
         bindsym p       exec "kdesudo synaptic"       , $exit
