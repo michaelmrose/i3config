@@ -1,3 +1,5 @@
+#vi3.fish provides helper functions to provide vi like keybindings for the i3 window manager
+
 function vi3_start-vi3
     vi3_define-vars
     vi3_setup-keyboard
