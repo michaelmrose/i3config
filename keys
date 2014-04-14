@@ -14,7 +14,7 @@ keysym Page_Down    = End
 keysym BackSpace = BackSpace
 keysym Menu = Delete
 
-! clear capslock and remap capslock to escape
+! make the capslock key useful, clear capslock and remap capslock to escape
 clear Lock
 keysym Caps_Lock = Escape
 
