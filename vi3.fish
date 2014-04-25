@@ -10,6 +10,7 @@ function vi3_define-vars
     set -U vi3_currentDesktop 1
     set -U vi3_lastDesktop 1
     set -U vi3_workspaceOperation # valid values lws sws saw law
+    set -U vi3_currentmode default
 end
 
 function vi3_setup-keyboard
@@ -37,6 +38,26 @@ function vi3_restore-shift-keys
     /opt/bin/xcape -e 'Shift_L=XF86Launch1'
     /opt/bin/xcape -e 'Shift_R=XF86Launch2'
 end
+
+function vi3_layout_windows
+    xdotool mousemove 1890 0
+    i3-msg move down
+    xdotool mousemove 0 0
+    i3-msg move left
+end
+
+function vi3_rotate_windows
+    xdotool mousemove 0 0
+    i3-msg move down
+    sleep 0.3
+    xdotool mousemove 0 540
+    i3-msg move left
+    sleep 0.3
+    xdotool mousemove 1890 0
+    i3-msg move down
+    xdotool mousemove 0 0
+end
+
 
 # function vi3_workspace
 #     if test $vi3_currentDesktop = $argv
@@ -109,4 +130,29 @@ function vi3_select-all-in-workspace
     i3-msg focus parent
 end
 
+function vi3_mode
+    set nextmode $argv
+    set endfunc {$vi3_currentmode}leave
+    set enterfunc {$nextmode}enter
+    eval $endfunc
+    i3-msg mode $nextmode
+    set -U vi3_currentmode $argv
+    eval $enterfunc
+end
+
+function defaultleave
+    notify-send "leaving default mode"
+end
+
+function defaultenter
+    notify-send "entering default mode"
+end
+
+function commandenter
+    notify-send "entering command mode"
+end
+
+function commandleave
+    notify-send "leaving command mode"
+end
 # short alias to longer commands
