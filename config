@@ -2,62 +2,38 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 #set $exit exec "ff vi3_switch-to-target-mode" 
-set $exit mode "default"
-set $mod Mod4
-set $primary_output   DVI-I-1
-set $secondary_output DVI-I-2
-set $selectall focus parent, focus parent, focus parent
-set $dm exec dmenu_run -fn 'DejaVu Sans Mono-15'
+#-----------------------variables-------------------------
+    set $exit mode "default"
+    set $mod Mod4
+    set $primary_output   DVI-I-1
+    set $secondary_output DVI-I-2
+    set $selectall focus parent, focus parent, focus parent
+    set $dm exec "ff dm"
+    set $killall focus parent, focus parent, focus parent, kill
+    set $next focus output right
 
-floating_modifier $mod
+#-----------------------appearance-------------------------
 
-#-----------------------appearance-----------------------------
+    #class                  border  backgr  text    indicator
+    client.focused          #111111 #A6CD01 #036300 #2e9ef4
+    client.focused_inactive #111111 #444444 #ffffff #484e50
+    client.unfocused        #111111 #222222 #888888 #292d2e
+    client.urgent           #2f343a #900000 #ffffff #900000
 
-#class                  border  backgr  text    indicator
-client.focused          #111111 #A6CD01 #036300 #2e9ef4
-client.focused_inactive #111111 #444444 #ffffff #484e50
-client.unfocused        #111111 #222222 #888888 #292d2e
-client.urgent           #2f343a #900000 #ffffff #900000
+    new_window 1pixel
+    font pango:DejaVu Sans Mono 10
 
-new_window 1pixel
-font pango:DejaVu Sans Mono 10
+    bar {
+            position bottom
+            status_command i3status
+            tray_output $primary_output
+    }
 
-bar {
-        status_command i3status
-        tray_output $primary_output
-        #output $primary_output
-}
 #-----------------------settings---------------------------
+    floating_modifier $mod
 
-#Keybindings
 
-    # change focus 
-        bindsym $mod+j focus up
-        bindsym $mod+k focus down
-        bindsym $mod+h focus left
-        bindsym $mod+l focus right
-
-    # reload the configuration file
-        bindsym $mod+Shift+c reload
-        bindsym $mod+Shift+r restart
-
-    #other keybindings
-        bindsym $mod+s move scratchpad
-        bindsym XF86LaunchB mode "command"
-        bindsym XF86Launch2 mode "open workspace"
-        bindsym XF86Launch1 mode "open workspace" 
-        bindsym Control+Mod1+l exec "ff lock"
-        bindsym Control+Mod1+s exec "suspend"
-        bindsym Control+Mod1+r $dm
-        bindsym F13 $dm
-        bindsym Mod1+s exec "konsole"
-        bindsym F14 exec "~/scripts/switchaudio.sh"
-        bindsym F16 exec "kmix"
-        bindsym $mod+n exec "ff new-session"
-        bindsym F15 exec "ff setvol +5%"
-        bindsym F21 exec "ff setvol -5%"
- 
-# Assign windows to workspaces and workspaces to outputs
+#--Assign windows to workspaces and workspaces to outputs--
 
     #windows
         assign [class=Clementine    ] s
@@ -110,15 +86,45 @@ for_window [class="Kcalc"] floating enable
 for_window [class="Calibre-gui" window_role="dialog"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="firefox.exe"] fullscreen
+
+#-----------------------Keybindings------------------------
+
+    # change focus 
+        bindsym $mod+j focus up
+        bindsym $mod+k focus down
+        bindsym $mod+h focus left
+        bindsym $mod+l focus right
+
+    # reload the configuration file
+        bindsym $mod+Shift+c reload
+        bindsym $mod+Shift+r restart
+        bindsym F12 restart
+
+    #other keybindings
+        bindsym $mod+s move scratchpad
+        bindsym XF86LaunchB mode "command"
+        bindsym XF86Launch2 mode "open workspace"
+        bindsym XF86Launch1 mode "open workspace" 
+        bindsym Control+Mod1+l exec "ff lock"
+        bindsym Control+Mod1+s exec "suspend"
+        bindsym Control+Mod1+r $dm
+        bindsym F13 $dm
+        bindsym Mod1+s exec "lxterminal"
+        bindsym F14 exec "~/scripts/switchaudio.sh"
+        bindsym F16 exec "kmix"
+        bindsym $mod+n exec "ff new-session"
+        bindsym F15 exec "ff setvol +5"
+        bindsym F21 exec "ff setvol -5"
+        bindsym $mod+a mode "audio"
+ 
 #-----------------------modes------------------------------
 mode "command" {
     #Keybindings
-        
-        bindsym F13 $dm
+    bindsym F13 $dm
 
     # kill focused window
         bindsym q kill,$exit
-        bindsym d mode "kill"
+        bindsym d mode "kill W window D workspace A all"
 
     # alternatively, you can use the cursor keys:
         bindsym Up focus up
@@ -131,11 +137,11 @@ mode "command" {
         bindsym h focus left
         bindsym l focus right
         bindsym space focus output right,$exit
-        bindsym n move container to output right,focus output right,$exit 
-        #bindsym z exec "/home/michael/scripts/rotatewindows.sh"
+        bindsym n focus output right, $exit 
+        bindsym z exec "~/scripts/layoutwindows", $exit
         #bindsym t exec "ksnapshot",$exit
         bindsym e exec "/home/michael/scripts/layout.sh", $exit
-        bindsym Tab workspace back_and_forth , $exit
+        bindsym Tab exec "~/scripts/rotatewindows.sh" 
 
     # move windows around
         bindsym Shift+k move up
@@ -145,13 +151,13 @@ mode "command" {
         
     
     # split in horizontal orientation
-        bindsym v split h
+        bindsym v splitv
 
     # split in vertical orientation
-        bindsym h split v
+        bindsym h splith
 
     # enter fullscreen mode for the focused container
-        bindsym f fullscreen,$exit
+        bindsym Shift+f fullscreen, $exit
 
     # focus the parent container
         bindsym p focus parent
@@ -166,7 +172,8 @@ mode "command" {
         bindsym $mod+Shift+s move scratchpad
         bindsym c exec "xdotool key Caps_Lock" , $exit
         bindsym x exec "restore-from-suspend" , $exit
-
+        
+        bindsym f mode "focus"
         bindsym o mode "open"             
         bindsym r mode "resize"           
         bindsym m mode "move window to workspace"             
@@ -177,6 +184,7 @@ mode "command" {
         bindsym s mode "split"
         bindsym Shift+c mode "combine workspaces"
         bindsym Shift+r mode "rearrange workspaces"
+        bindsym Shift+a mode "audio"
         
        
         # double tapping super "locks in" command mode by setting target mode to command 
@@ -208,12 +216,37 @@ mode "open" {
         bindsym o       exec "systemsettings"         , $exit
         bindsym Shift+o exec "kdesudo systemsettings" , $exit
         bindsym p       exec "kdesudo synaptic"       , $exit
-        bindsym q       exec "qbittorent"             , $exit
+        bindsym q       exec "qbittorrent"            , $exit
         bindsym s       exec "steam"                  , $exit
-        bindsym t       exec "konsole"                , $exit
+        bindsym t       exec "lxterminal"             , $exit
         bindsym v       exec "qvim"                   , $exit
         bindsym w       exec "libreoffice"            , $exit
         bindsym x       exec "ksnapshot"
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+
+mode "focus" {
+    #keybindings
+        bindsym b       exec "ff focus Firefox"                , $exit
+        bindsym c       exec "ff focus Kcalc"                  , $exit
+        bindsym d       exec "ff focus Qbittorent"             , $exit
+        bindsym e       exec "ff focus Nvpy"                   , $exit
+        bindsym f       exec "ff focus Dolphin"                , $exit
+        bindsym g       exec "ff focus Steam"                  , $exit
+        bindsym h       exec "ff focus Hexchat"                , $exit
+        bindsym i       exec "ff focus Idea"                   , $exit
+        bindsym l       exec "ff focus Calibre"                , $exit
+        bindsym m       exec "ff focus Clementine"             , $exit
+        bindsym Shift+m exec "ff focus Vlc"                    , $exit
+        bindsym o       exec "ff focus Systemsettings"         , $exit
+        bindsym p       exec "ff focus Synaptic"               , $exit
+        bindsym q       exec "ff focus Qbittorrent"            , $exit
+        bindsym s       exec "ff focus Steam"                  , $exit
+        bindsym t       exec "ff focus Lxterminal"             , $exit
+        bindsym v       exec "ff focus Qvim"                   , $exit
+        bindsym w       exec "ff focus Libreoffice"            , $exit
 
         bindsym Escape $exit
         bindsym F7 mode "default"
@@ -249,8 +282,8 @@ mode "arrange" {
 
 mode "split" {
     #keyinding
-        bindsym h splith,$exit
-        bindsym v splitv,$exit
+        bindsym h splith, mode "command"
+        bindsym v splitv, mode "command"
 
         bindsym Escape $exit
         bindsym F7 mode "default"
@@ -300,6 +333,7 @@ mode "open workspace" {
         bindsym Escape $exit
         bindsym F7 mode "default"
 }
+
 mode "take window to workspace" {
     #keybindings
         bindsym 1 move container to workspace 1, workspace 1, $exit
@@ -425,6 +459,8 @@ mode "move window to workspace" {
         bindsym x move container to workspace x, $exit
         bindsym y move container to workspace y, $exit
         bindsym z move container to workspace z, $exit
+        bindsym Left  move container to output left,  focus output left,  $exit
+        bindsym Right move container to output right, focus output right, $exit
 
         bindsym Escape $exit
         bindsym F7 mode "default"
@@ -515,9 +551,25 @@ mode "rearrange workspaces" {
         bindsym Escape $exit
         bindsym F7 mode "default"
 }
-mode kill {
+mode "kill W window D workspace A all" {
     #keybindings
-        bindsym d $selectall, kill, $exit 
+        bindsym d $killall, $exit
+        bindsym w kill, $exit
+        bindsym a $killall, $next, $killall, $exit
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+set $exec 'exec "ff '
+set $end "
+ 
+mode "audio" {
+    #keybindings
+        bindsym j exec "ff setvol -5"
+        bindsym k exec "ff setvol +5"
+        bindsym h exec "ff clemctl Prev"
+        bindsym l exec "ff clemctl Next"
+        bindsym n exec "~/scripts/switchaudio.sh"
+
         bindsym Escape $exit
         bindsym F7 mode "default"
 }
