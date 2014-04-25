@@ -11,6 +11,7 @@
     set $dm exec "ff dm"
     set $killall focus parent, focus parent, focus parent, kill
     set $next focus output right
+    set $op exec ff vi3_operator-mode
 
 #-----------------------appearance-------------------------
 
@@ -103,8 +104,8 @@ for_window [class="firefox.exe"] fullscreen
     #other keybindings
         bindsym $mod+s move scratchpad
         bindsym XF86LaunchB mode "command"
-        bindsym XF86Launch2 mode "open workspace"
-        bindsym XF86Launch1 mode "open workspace" 
+        bindsym XF86Launch2 $op ws
+        bindsym XF86Launch1 $op ws
         bindsym Control+Mod1+l exec "ff lock"
         bindsym Control+Mod1+s exec "suspend"
         bindsym Control+Mod1+r $dm
@@ -139,7 +140,6 @@ mode "command" {
         bindsym space focus output right,$exit
         bindsym n focus output right, $exit 
         bindsym z exec "~/scripts/layoutwindows", $exit
-        #bindsym t exec "ksnapshot",$exit
         bindsym e exec "/home/michael/scripts/layout.sh", $exit
         bindsym Tab exec "~/scripts/rotatewindows.sh" 
 
@@ -154,7 +154,7 @@ mode "command" {
         bindsym v splitv
 
     # split in vertical orientation
-        bindsym h splith
+        bindsym s splith
 
     # enter fullscreen mode for the focused container
         bindsym Shift+f fullscreen, $exit
@@ -176,14 +176,13 @@ mode "command" {
         bindsym f mode "focus"
         bindsym o mode "open"             
         bindsym r mode "resize"           
-        bindsym m mode "move window to workspace"             
-        bindsym t mode "take window to workspace"
-        bindsym g mode "get windows from workspace"
-        bindsym w mode "open workspace"
+        bindsym m $op mws 
+        bindsym t $op tws
+        bindsym g $op gws
+        bindsym w $op ws
         bindsym a mode "arrange"
-        bindsym s mode "split"
-        bindsym Shift+c mode "combine workspaces"
-        bindsym Shift+r mode "rearrange workspaces"
+        bindsym Shift+c $op cws
+        bindsym Shift+r $op rws
         bindsym Shift+a mode "audio"
         
        
@@ -280,277 +279,6 @@ mode "arrange" {
         bindsym F7 mode "default"
 }
 
-mode "split" {
-    #keyinding
-        bindsym h splith, mode "command"
-        bindsym v splitv, mode "command"
-
-        bindsym Escape $exit
-        bindsym F7 mode "default"
-}
-
-#since I only have one monitor temporarily I must change some stuff around
-mode "open workspace" {
-    #keybindings
-        bindsym 1 workspace 1,$exit
-        bindsym 2 workspace 2,$exit
-        bindsym 3 workspace 3,$exit
-        bindsym 4 workspace 4,$exit
-        bindsym 5 workspace 5,$exit
-        bindsym 6 workspace 6,$exit
-        bindsym 7 workspace 7,$exit
-        bindsym 8 workspace 8,$exit
-        bindsym 9 workspace 9,$exit
-        bindsym 0 workspace 0,$exit
-        bindsym a workspace a,$exit
-        bindsym b workspace b,$exit
-        bindsym c workspace c,$exit
-        bindsym d workspace d,$exit
-        bindsym e workspace e,$exit
-        bindsym f workspace f,$exit
-        bindsym g workspace g,$exit
-        bindsym h workspace h,$exit
-        bindsym i workspace i,$exit 
-        bindsym j workspace j,$exit 
-        bindsym k workspace k,$exit
-        bindsym l workspace l,$exit
-        bindsym m workspace m,$exit
-        bindsym n workspace n,$exit
-        bindsym o workspace o,$exit
-        bindsym p workspace p,$exit 
-        bindsym q workspace q,$exit
-        bindsym r workspace r,$exit
-        bindsym s workspace s,$exit
-        bindsym t workspace t,$exit
-        bindsym u workspace u,$exit
-        bindsym v workspace v,$exit
-        bindsym w workspace w,$exit
-        bindsym x workspace x,$exit
-        bindsym y workspace y,$exit
-        bindsym z workspace z,$exit
-        bindsym Tab exec "i3-msg workspace back_and_forth",$exit 
-
-        bindsym Escape $exit
-        bindsym F7 mode "default"
-}
-
-mode "take window to workspace" {
-    #keybindings
-        bindsym 1 move container to workspace 1, workspace 1, $exit
-        bindsym 2 move container to workspace 2, workspace 2, $exit
-        bindsym 3 move container to workspace 3, workspace 3, $exit
-        bindsym 4 move container to workspace 4, workspace 4, $exit
-        bindsym 5 move container to workspace 5, workspace 5, $exit
-        bindsym 6 move container to workspace 6, workspace 6, $exit
-        bindsym 7 move container to workspace 7, workspace 7, $exit
-        bindsym 8 move container to workspace 8, workspace 8, $exit
-        bindsym 9 move container to workspace 9, workspace 9, $exit
-        bindsym 0 move container to workspace 0, workspace 0, $exit
-        bindsym a move container to workspace a, workspace a, $exit
-        bindsym b move container to workspace b, workspace b, $exit
-        bindsym c move container to workspace c, workspace c, $exit
-        bindsym d move container to workspace d, workspace d, $exit
-        bindsym e move container to workspace e, workspace e, $exit
-        bindsym f move container to workspace f, workspace f, $exit
-        bindsym g move container to workspace g, workspace g, $exit
-        bindsym h move container to workspace h, workspace h, $exit
-        bindsym i move container to workspace i, workspace i, $exit
-        bindsym j move container to workspace j, workspace j, $exit
-        bindsym k move container to workspace k, workspace k, $exit
-        bindsym l move container to workspace l, workspace l, $exit
-        bindsym m move container to workspace m, workspace m, $exit
-        bindsym n move container to workspace n, workspace n, $exit
-        bindsym o move container to workspace o, workspace o, $exit
-        bindsym p move container to workspace p, workspace p, $exit
-        bindsym q move container to workspace q, workspace q, $exit
-        bindsym r move container to workspace r, workspace r, $exit
-        bindsym s move container to workspace s, workspace s, $exit
-        bindsym t move container to workspace t, workspace t, $exit
-        bindsym u move container to workspace u, workspace u, $exit
-        bindsym v move container to workspace v, workspace v, $exit
-        bindsym w move container to workspace w, workspace w, $exit
-        bindsym x move container to workspace x, workspace x, $exit
-        bindsym y move container to workspace y, workspace y, $exit
-        bindsym z move container to workspace z, workspace z, $exit
-
-        bindsym Escape $exit
-        bindsym F7 mode "default"
-}
-
-mode "get windows from workspace" {
-    #keybindings
-        bindsym 1 exec "ff getws 1",$exit
-        bindsym 2 exec "ff getws 2",$exit
-        bindsym 3 exec "ff getws 3",$exit
-        bindsym 4 exec "ff getws 4",$exit
-        bindsym 5 exec "ff getws 5",$exit
-        bindsym 6 exec "ff getws 6",$exit
-        bindsym 7 exec "ff getws 7",$exit
-        bindsym 8 exec "ff getws 8",$exit
-        bindsym 9 exec "ff getws 9",$exit
-        bindsym 0 exec "ff getws 0",$exit
-        bindsym a exec "ff getws a",$exit
-        bindsym b exec "ff getws b",$exit
-        bindsym c exec "ff getws c",$exit
-        bindsym d exec "ff getws d",$exit
-        bindsym e exec "ff getws e",$exit
-        bindsym f exec "ff getws f",$exit
-        bindsym g exec "ff getws g",$exit
-        bindsym h exec "ff getws h",$exit
-        bindsym i exec "ff getws i",$exit
-        bindsym j exec "ff getws j",$exit
-        bindsym k exec "ff getws k",$exit
-        bindsym l exec "ff getws l",$exit
-        bindsym m exec "ff getws m",$exit
-        bindsym n exec "ff getws n",$exit
-        bindsym o exec "ff getws o",$exit
-        bindsym p exec "ff getws p",$exit
-        bindsym q exec "ff getws q",$exit
-        bindsym r exec "ff getws r",$exit
-        bindsym s exec "ff getws s",$exit
-        bindsym t exec "ff getws t",$exit
-        bindsym u exec "ff getws u",$exit
-        bindsym v exec "ff getws v",$exit
-        bindsym w exec "ff getws w",$exit
-        bindsym x exec "ff getws x",$exit
-        bindsym y exec "ff getws y",$exit
-        bindsym z exec "ff getws z",$exit
-
-        bindsym Escape $exit
-        bindsym F7 mode "default"
-
-}
-
-mode "move window to workspace" {
-    #keybindings
-        bindsym 1 move container to workspace 1, $exit
-        bindsym 2 move container to workspace 2, $exit
-        bindsym 3 move container to workspace 3, $exit
-        bindsym 4 move container to workspace 4, $exit
-        bindsym 5 move container to workspace 5, $exit
-        bindsym 6 move container to workspace 6, $exit
-        bindsym 7 move container to workspace 7, $exit
-        bindsym 8 move container to workspace 8, $exit
-        bindsym 9 move container to workspace 9, $exit
-        bindsym 0 move container to workspace 0, $exit
-        bindsym a move container to workspace a, $exit
-        bindsym b move container to workspace b, $exit
-        bindsym c move container to workspace c, $exit
-        bindsym d move container to workspace d, $exit
-        bindsym e move container to workspace e, $exit
-        bindsym f move container to workspace f, $exit
-        bindsym g move container to workspace g, $exit
-        bindsym h move container to workspace h, $exit
-        bindsym i move container to workspace i, $exit
-        bindsym j move container to workspace j, $exit
-        bindsym k move container to workspace k, $exit
-        bindsym l move container to workspace l, $exit
-        bindsym m move container to workspace m, $exit
-        bindsym n move container to workspace n, $exit
-        bindsym o move container to workspace o, $exit
-        bindsym p move container to workspace p, $exit
-        bindsym q move container to workspace q, $exit
-        bindsym r move container to workspace r, $exit
-        bindsym s move container to workspace s, $exit
-        bindsym t move container to workspace t, $exit
-        bindsym u move container to workspace u, $exit
-        bindsym v move container to workspace v, $exit
-        bindsym w move container to workspace w, $exit
-        bindsym x move container to workspace x, $exit
-        bindsym y move container to workspace y, $exit
-        bindsym z move container to workspace z, $exit
-        bindsym Left  move container to output left,  focus output left,  $exit
-        bindsym Right move container to output right, focus output right, $exit
-
-        bindsym Escape $exit
-        bindsym F7 mode "default"
-}
-
-mode "combine workspaces" {
-    #keybindings
-        bindsym 1 exec "ff cws 1" 
-        bindsym 2 exec "ff cws 2" 
-        bindsym 3 exec "ff cws 3" 
-        bindsym 4 exec "ff cws 4" 
-        bindsym 5 exec "ff cws 5" 
-        bindsym 6 exec "ff cws 6" 
-        bindsym 7 exec "ff cws 7" 
-        bindsym 8 exec "ff cws 8" 
-        bindsym 9 exec "ff cws 9" 
-        bindsym 0 exec "ff cws 0" 
-        bindsym a exec "ff cws a" 
-        bindsym b exec "ff cws b" 
-        bindsym c exec "ff cws c" 
-        bindsym d exec "ff cws d" 
-        bindsym e exec "ff cws e" 
-        bindsym f exec "ff cws f" 
-        bindsym g exec "ff cws g" 
-        bindsym h exec "ff cws h" 
-        bindsym i exec "ff cws i" 
-        bindsym j exec "ff cws j" 
-        bindsym k exec "ff cws k" 
-        bindsym l exec "ff cws l" 
-        bindsym m exec "ff cws m" 
-        bindsym n exec "ff cws n" 
-        bindsym o exec "ff cws o" 
-        bindsym p exec "ff cws p" 
-        bindsym q exec "ff cws q" 
-        bindsym r exec "ff cws r" 
-        bindsym s exec "ff cws s" 
-        bindsym t exec "ff cws t" 
-        bindsym u exec "ff cws u" 
-        bindsym v exec "ff cws v" 
-        bindsym w exec "ff cws w" 
-        bindsym x exec "ff cws x" 
-        bindsym y exec "ff cws y" 
-        bindsym z exec "ff cws z" 
-
-        bindsym Escape $exit
-        bindsym F7 mode "default"
-}
-
-mode "rearrange workspaces" {
-    #keybindings
-        bindsym 1 exec "ff rws 1" 
-        bindsym 2 exec "ff rws 2"
-        bindsym 3 exec "ff rws 3" 
-        bindsym 4 exec "ff rws 4" 
-        bindsym 5 exec "ff rws 5" 
-        bindsym 6 exec "ff rws 6" 
-        bindsym 7 exec "ff rws 7" 
-        bindsym 8 exec "ff rws 8" 
-        bindsym 9 exec "ff rws 9" 
-        bindsym 0 exec "ff rws 0" 
-        bindsym a exec "ff rws a" 
-        bindsym b exec "ff rws b" 
-        bindsym c exec "ff rws c" 
-        bindsym d exec "ff rws d" 
-        bindsym e exec "ff rws e" 
-        bindsym f exec "ff rws f" 
-        bindsym g exec "ff rws g" 
-        bindsym h exec "ff rws h" 
-        bindsym i exec "ff rws i" 
-        bindsym j exec "ff rws j" 
-        bindsym k exec "ff rws k" 
-        bindsym l exec "ff rws l" 
-        bindsym m exec "ff rws m" 
-        bindsym n exec "ff rws n" 
-        bindsym o exec "ff rws o" 
-        bindsym p exec "ff rws p" 
-        bindsym q exec "ff rws q" 
-        bindsym r exec "ff rws r" 
-        bindsym s exec "ff rws s" 
-        bindsym t exec "ff rws t" 
-        bindsym u exec "ff rws u" 
-        bindsym v exec "ff rws v" 
-        bindsym w exec "ff rws w" 
-        bindsym x exec "ff rws x" 
-        bindsym y exec "ff rws y" 
-        bindsym z exec "ff rws z" 
-
-        bindsym Escape $exit
-        bindsym F7 mode "default"
-}
 mode "kill W window D workspace A all" {
     #keybindings
         bindsym d $killall, $exit
@@ -559,9 +287,7 @@ mode "kill W window D workspace A all" {
         bindsym Escape $exit
         bindsym F7 mode "default"
 }
-set $exec 'exec "ff '
-set $end "
- 
+
 mode "audio" {
     #keybindings
         bindsym j exec "ff setvol -5"
@@ -569,6 +295,39 @@ mode "audio" {
         bindsym h exec "ff clemctl Prev"
         bindsym l exec "ff clemctl Next"
         bindsym n exec "~/scripts/switchaudio.sh"
+
+        bindsym Escape $exit
+        bindsym F7 mode "default"
+}
+
+mode "op" {
+    #keybindings
+        bindsym a exec "ff evalvi3op a",$exit
+        bindsym b exec "ff evalvi3op b",$exit
+        bindsym c exec "ff evalvi3op c",$exit
+        bindsym d exec "ff evalvi3op d",$exit
+        bindsym e exec "ff evalvi3op e",$exit
+        bindsym f exec "ff evalvi3op f",$exit
+        bindsym g exec "ff evalvi3op g",$exit
+        bindsym h exec "ff evalvi3op h",$exit
+        bindsym i exec "ff evalvi3op i",$exit
+        bindsym j exec "ff evalvi3op j",$exit
+        bindsym k exec "ff evalvi3op k",$exit
+        bindsym l exec "ff evalvi3op l",$exit
+        bindsym m exec "ff evalvi3op m",$exit
+        bindsym n exec "ff evalvi3op n",$exit
+        bindsym o exec "ff evalvi3op o",$exit
+        bindsym p exec "ff evalvi3op p",$exit
+        bindsym q exec "ff evalvi3op q",$exit
+        bindsym r exec "ff evalvi3op r",$exit
+        bindsym s exec "ff evalvi3op s",$exit
+        bindsym t exec "ff evalvi3op t",$exit
+        bindsym u exec "ff evalvi3op u",$exit
+        bindsym v exec "ff evalvi3op v",$exit
+        bindsym w exec "ff evalvi3op w",$exit
+        bindsym x exec "ff evalvi3op x",$exit
+        bindsym y exec "ff evalvi3op y",$exit
+        bindsym z exec "ff evalvi3op z",$exit
 
         bindsym Escape $exit
         bindsym F7 mode "default"
