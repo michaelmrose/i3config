@@ -1,4 +1,3 @@
-# i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 #set $exit exec "ff vi3_switch-to-target-mode" 
@@ -20,7 +19,7 @@
 #-----------------------appearance-------------------------
 
     #class                  border  backgr  text    indicator
-    client.focused          #111111 #A6CD01 #036300 #2e9ef4
+    client.focused          #111111 #A6CD01 #036300 #000000
     client.focused_inactive #111111 #444444 #ffffff #484e50
     client.unfocused        #111111 #222222 #888888 #292d2e
     client.urgent           #2f343a #900000 #ffffff #900000
@@ -32,6 +31,15 @@
             position bottom
             status_command i3status
             tray_output $primary_output
+
+            #class                 border  backgr  text
+            colors { 
+                focused_workspace  #000000 #A6CD01 #036300
+                inactive_workspace #333333 #000000 #AAAAAA
+                active_workspace   #333333 #000000 #FFFFFF
+                urgent_workspace   #333333 #A6CD01 #000000
+            }
+
     }
 
 #-----------------------settings---------------------------
@@ -49,11 +57,6 @@
         
 
     #outputs
-       workspace 1 output $secondary_output 
-       workspace 2 output $secondary_output 
-       workspace 3 output $secondary_output 
-       workspace 4 output $secondary_output 
-       workspace 5 output $secondary_output 
        workspace q output $secondary_output 
        workspace w output $secondary_output   
        workspace e output $secondary_output
@@ -69,11 +72,6 @@
        workspace c output $secondary_output 
        workspace v output $secondary_output 
        workspace b output $secondary_output
-       workspace 6 output $primary_output
-       workspace 7 output $primary_output
-       workspace 8 output $primary_output
-       workspace 9 output $primary_output
-       workspace 0 output $primary_output
        workspace y output $primary_output
        workspace u output $primary_output
        workspace i output $primary_output
@@ -114,6 +112,8 @@ for_window [class="firefox.exe"] fullscreen
         bindsym Control+Mod1+r $dm
         bindsym $mod+n exec "ff new-session"
         bindsym $mod+a mode "audio"
+        bindsym F15 exec "ff setvol +5" 
+        bindsym F21 exec "ff setvol -5" 
  
 #-----------------------modes------------------------------
 mode "command" {
@@ -166,7 +166,6 @@ mode "command" {
 
         bindsym $mod+Shift+s move scratchpad
         bindsym c exec "xdotool key Caps_Lock" , $exit
-        bindsym x exec "restore-from-suspend" , $exit
         
         bindsym f $op focus-app
         bindsym o $op open-app             
@@ -180,6 +179,7 @@ mode "command" {
         bindsym Shift+c $op cws
         bindsym Shift+r $op rws
         bindsym Shift+a mode "audio"
+        bindsym z mode "audio"
 
         bindsym Escape $exit
 }
@@ -222,8 +222,10 @@ mode "audio" {
     #keybindings
         bindsym j exec "ff setvol -5"
         bindsym k exec "ff setvol +5"
-        bindsym h exec "ff clemctl Prev"
-        bindsym l exec "ff clemctl Next"
+        bindsym h exec "ff audio-prev"
+        bindsym l exec "ff audio-next"
+        bindsym Space exec "xdotool key XF86AudioPlay"
+        bindsym p exec "ff audio-play"
         bindsym n exec "~/scripts/switchaudio.sh"
 
         bindsym Escape $exit
@@ -287,6 +289,6 @@ mode "op" {
         bindsym Escape $backout
 }
 
-exec "ff autostart" 
-exec "vi3_start-vi3"
+exec "~/scripts/autostart.sh" 
+exec "ff vi3_start-vi3"
 # vim:filetype=i3
