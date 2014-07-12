@@ -33,13 +33,16 @@
             }
 
     }
+
+#----------------------------------------------------------
+
     bar {
 
             position bottom
             status_command i3status
             tray_output HDMI-0
 
-}
+    }
 
 #--Assign windows to workspaces and workspaces to outputs--
 
