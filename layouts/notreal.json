@@ -1,0 +1,82 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 1,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 992,
+       "width": 1676,
+       "x": 0,
+       "y": 0
+    },
+    "name": "noderepl  /home/michael/proj/node/nodetutorial - LilyTerm",
+    "percent": 0.5,
+    "swallows": [
+       {
+        "class": "^LilyTerm$"
+       // "instance": "^lilyterm$",
+       // "title": "^noderepl\\ \\ \\/home\\/michael\\/proj\\/node\\/nodetutorial\\ \\-\\ LilyTerm$",
+       // "transient_for": "^$",
+       // "window_role": "^LilyTerm$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    // splitv split container with 2 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 1,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 992,
+               "width": 1676,
+               "x": 0,
+               "y": 0
+            },
+            "name": "fish  /home/michael - LilyTerm",
+            "percent": 0.5,
+            "swallows": [
+               {
+                "class": "^LilyTerm$"
+               // "instance": "^lilyterm$",
+               // "title": "^fish\\ \\ \\/home\\/michael\\ \\-\\ LilyTerm$",
+               // "transient_for": "^$",
+               // "window_role": "^LilyTerm$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 1,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 992,
+               "width": 1676,
+               "x": 0,
+               "y": 0
+            },
+            "name": "saveme  /home/michael/.i3/sessions - LilyTerm",
+            "percent": 0.5,
+            "swallows": [
+               {
+                "class": "^LilyTerm$"
+               // "instance": "^lilyterm$",
+               // "title": "^saveme\\ \\ \\/home\\/michael\\/\\.i3\\/sessions\\ \\-\\ LilyTerm$",
+               // "transient_for": "^$",
+               // "window_role": "^LilyTerm$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+

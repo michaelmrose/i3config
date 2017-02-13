@@ -1,0 +1,46 @@
+#-----------------------appearance-------------------------
+
+    #class                  border  backgr  text    indicator
+    client.focused          #111111 #2AB52A #000000 #2AB52A   
+    client.focused_inactive #111111 #111111 #FFFFFF #484e50
+    client.unfocused        #111111 #111111 #888888 #292d2e
+    client.urgent           #2f343a #900000 #ffffff #900000
+
+    new_window pixel 4
+    new_float pixel 4
+    font pango:Source Code Pro for Powerline, myfont, FontAwesome, Weather Icons 10
+
+    bar {
+            output DVI-I-1
+            position bottom
+            # status_command i3blocks -c ~/.i3blocks.conf
+            status_command /opt/i3blocks/i3blocks -c ~/.i3blocks.conf
+            tray_output DVI-I-0
+            bindsym button4 nop
+            bindsym button5 nop
+            colors { 
+                #class              border  backgr  text
+                focused_workspace  #111111 #2AB52A #000000
+                inactive_workspace #111111 #111111 #999999
+                active_workspace   #111111 #111111 #FFFFFF
+                urgent_workspace   #111111 #FFFFFF #000000
+            }
+
+    }
+
+    bar {
+            bindsym button4 nop
+            bindsym button5 nop
+            output DVI-I-0
+            position bottom
+            status_command /opt/i3blocks/i3blocks -c ~/.i3blocksalt.conf
+            tray_output DVI-I-0
+            colors { 
+                #class              border  backgr  text
+                focused_workspace  #111111 #2AB52A #000000
+                inactive_workspace #111111 #111111 #999999
+                active_workspace   #111111 #111111 #FFFFFF
+                urgent_workspace   #111111 #FFFFFF #000000
+            }
+
+    }

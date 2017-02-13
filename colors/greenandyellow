@@ -1,0 +1,50 @@
+#-----------------------appearance-------------------------
+    set $client.focused.background #A8E605
+
+    #class                  border  backgr  text    indicator
+    client.focused          #111111 #A7E605 #253215 #A7E605
+    client.focused_inactive #111111 #444444 #ffffff #444444
+    client.unfocused        #111111 #292D2E #888888 #292D2E
+    client.urgent           #111111 #900000 #ffffff #900000
+
+    new_window pixel 1
+    new_float pixel 1
+    font pango:Source Code Pro for Powerline, myfont, FontAwesome 10
+    exec_always "ff wp scale amazonscout.jpg"
+
+    bar {
+            output DVI-I-1
+            position bottom
+            status_command i3blocks -c ~/.i3blocks.conf
+            tray_output DVI-I-0
+            wheel_up_cmd nop
+            wheel_down_cmd nop
+            binding_mode_indicator no
+            colors {
+                #class              border  backgr  text
+                background #020500
+                focused_workspace  #000000 #A7E605 #253215
+                inactive_workspace #333333 #000000 #AAAAAA
+                active_workspace   #333333 #000000 #FFFFFF
+                urgent_workspace   #333333 #900000 #FFFFFF
+            }
+
+    }
+
+    bar {
+            output DVI-I-0
+            position bottom
+            status_command i3blocks -c ~/.i3blocksalt.conf
+            tray_output DVI-I-0
+            wheel_up_cmd nop
+            wheel_down_cmd nop
+            binding_mode_indicator no
+            colors {
+                background #020500
+                focused_workspace  #000000 #A7E605 #253215
+                inactive_workspace #333333 #000000 #AAAAAA
+                active_workspace   #333333 #000000 #FFFFFF
+                urgent_workspace   #333333 #900000 #FFFFFF
+            }
+
+    }

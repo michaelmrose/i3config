@@ -1,0 +1,66 @@
+#-----------------------appearance-------------------------
+
+    #class                  border  backgr  text    indicator
+    client.focused          #111111 #6CDEF9 #6CDEF9 #6CDEF9   
+    client.focused_inactive #111111 #111111 #111111 #292d2e
+    client.unfocused        #111111 #111111 #111111 #292d2e
+    client.urgent           #2f343a #900000 #900000 #900000
+
+    new_window pixel 4
+    new_float pixel 4
+    font pango:Source Code Pro for Powerline, myfont, FontAwesome, Weather Icons 3
+
+    bar {
+            font pango:Source Code Pro for Powerline, myfont, FontAwesome, Weather Icons 10
+            output DVI-I-2
+            position bottom
+            status_command ~/ext-projs/i3blocks/i3blocks -c ~/.config/i3blocks/i3blocks-secondary.conf
+            # status_command /opt/i3blocks/i3blocks -c ~/.i3blocks.conf
+            tray_output HDMI-0
+            bindsym button4 nop
+            bindsym button5 nop
+            colors { 
+                #class              border  backgr  text
+                focused_workspace  #111111 #6CDEF9 #000000
+                inactive_workspace #111111 #111111 #999999
+                active_workspace   #111111 #111111 #FFFFFF
+                urgent_workspace   #111111 #FFFFFF #000000
+            }
+
+    }
+
+    
+    # bar {
+    #         font pango:Source Code Pro for Powerline, myfont, FontAwesome, Weather Icons 10
+    #         bindsym button4 nop
+    #         bindsym button5 nop
+    #         output HDMI-0
+    #         position top
+    #         workspace_buttons no
+    #         colors { 
+    #             #class              border  backgr  text
+    #             focused_workspace  #111111 #6CDEF9 #000000
+    #             inactive_workspace #111111 #111111 #999999
+    #             active_workspace   #111111 #111111 #FFFFFF
+    #             urgent_workspace   #111111 #FFFFFF #000000
+    #         }
+
+    # }
+    bar {
+            font pango:Source Code Pro for Powerline, myfont, FontAwesome, Weather Icons 10
+            bindsym button4 nop
+            bindsym button5 nop
+            output HDMI-0
+            position bottom
+            status_command  ~/ext-projs/i3blocks/i3blocks -c ~/.config/i3blocks/i3blocks-primary.conf
+            # status_command /opt/i3blocks/i3blocks -c ~/.i3blocksalt.conf
+            tray_output HDMI-0
+            colors { 
+                #class              border  backgr  text
+                focused_workspace  #111111 #6CDEF9 #000000
+                inactive_workspace #111111 #111111 #999999
+                active_workspace   #111111 #111111 #FFFFFF
+                urgent_workspace   #111111 #FFFFFF #000000
+            }
+
+    }

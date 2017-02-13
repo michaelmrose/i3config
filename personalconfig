@@ -1,69 +1,67 @@
 #---------------------user variables-----------------------
 
     set $mod Mod4
-    set $primary_output  HDMI-0 
-    set $secondary_output DVI-I-0
-    font pango:DejaVu Sans Mono 10
-
-#-----------------------appearance-------------------------
-
-    #class                  border  backgr  text    indicator
-    client.focused          #111111 #AFD700 #066900 #000000
-    client.focused_inactive #111111 #444444 #ffffff #484e50
-    client.unfocused        #111111 #222222 #888888 #292d2e
-    client.urgent           #2f343a #900000 #ffffff #900000
-
-    new_window 1pixel
-
-    bar {
-            #class                 border  backgr  text
-            colors { 
-                focused_workspace  #000000 #AFD700 #066900
-                inactive_workspace #333333 #000000 #AAAAAA
-                active_workspace   #333333 #000000 #FFFFFF
-                urgent_workspace   #333333 #066900 #AFD700
-            }
-
-    }
-
-#----------------------------------------------------------
-
-    bar {
-
-            position bottom
-            status_command i3status
-            tray_output HDMI-0
-
-    }
+    set $primary_output  HDMI-0
+    set $secondary_output DVI-I-2
+    # font pango:Source Code Pro for Powerline, myfont, FontAwesome 10
 
 #--Assign windows to workspaces and workspaces to outputs--
 
     #windows
-        assign [class=Clementine    ] s
-        assign [class=Calibre-gui   ] i
-        assign [class=Hexchat       ] a
-        assign [class=jetbrains-ide ] u
-        assign [class=Vmware        ] r
-        assign [class=Thunderbird   ] l
-        assign [class=Screenkey     ] f
-        
-for_window [class="Qalculate"] floating enable
-for_window [class="Speedcrunch"] floating enable
-for_window [class="Main.py"] floating enable
-for_window [class="Screenkey"] floating enable
-for_window [class="Calibre-gui" window_role="dialog"] floating enable
+        # assign [class=Clementine     ] s
+        assign [instance=calibre-gui  ] i
+        assign [class=Hexchat         ] a
+        assign [class=jetbrains-ide   ] u
+        assign [class=Thunderbird     ] l
+        assign [class=Screenkey       ] f
+        assign [class=Qbittorrent     ] y
+        assign [class=Solaar          ] z
+        assign [class=Zeal            ] c
+        assign [class=Slack           ] e
+        assign [class=telegram-desktop] z
+
+        # assign [class=Zeal           ] r
+        # this is how using workspace numbers works
+        # assign [class=Lxterminal] "1: test"
+        # workspace "1: test" output $primary_output
+        # bindsym $mod+1 workspace number 1
+
+# for_window [class="Qalculate"] floating enable
+#for_window [Class=Master-pdf-editor] floating disable
+# for_window [class="Speedcrunch"] floating enable
 for_window [class="feh"] floating enable
-#for_window [class="Sxiv"] floating enable
-for_window [class="firefox.exe"] fullscreen
-for_window [class="Lxterminal"] exec "ff trans .80"
-for_window [class="Konsole"] exec "ff trans .80"
-for_window [class="Calibre-ebook-viewer"] fullscreen 
+# for_window [class="LilyTerm"] floating enable
+# for_window [class="firefox.exe"] fullscreen
+for_window [class="Firefox" title="Passwords$"] floating disable
+for_window [class="Yad"] floating enable
+for_window [class="Terminator"] focus
+# for_window [class="Chromium-browser"] exec "ff unset-fullscreen"
+# for_window [class="Qvim"] exec "ff set-trans"
+# for_window [class="i3bar"] exec "ff set-trans"
+# for_window [class="Clementine"] exec "ff set-trans"
+# for_window [class="Spacefm"] exec "ff set-trans"
+# for_window [class="LilyTerm"] exec "ff set-trans"
+# for_window [class="Hexchat"] exec "ff set-trans"
+# for_window [class="Zathura"] exec "ff set-trans"
+# for_window [class="Emacs"] exec "ff set-trans"
+# no_focus [class="Spacefm"]
+# for_window [class="i3-frame"] exec "ff set-trans"
+# for_window [class="libprs500" title="E-book viewer$"] exec "ff unset-fullscreen"
+for_window [class="Firefox" urgent="latest"] focus
+# no_focus [class=".*"]
+# for_window [class="Solaar"] kill
+no_focus [class="Solaar"]
 mouse_warping none
+focus_follows_mouse yes
 # vim:filetype=i3
 
+# gaps settings for workspaces
+gaps inner 10
+gaps outer 5
+smart_gaps on
+# workspace "k" gaps inner 0
+# workspace "k" gaps outer 0
 #-----------------------Keybindings------------------------
 
-        bindsym F15 exec "ff setvol +5" 
-        bindsym F21 exec "ff setvol -5" 
 
 # vim:filetype=i3

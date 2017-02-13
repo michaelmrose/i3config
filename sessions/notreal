@@ -1,0 +1,4 @@
+#!/bin/fish
+lilyterm &
+lilyterm &
+lilyterm &
